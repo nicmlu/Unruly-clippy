@@ -21,10 +21,6 @@ export default class UnrulyOfficeAssistant extends HTMLElement {
                 justify-content: space-around;
                 align-items: center;
             }
-
-            .update {
-                color:#000000;
-            }
             </style>
         `;
   }
