@@ -12,7 +12,7 @@ export default class UnrulyOfficeAssistant extends HTMLElement {
                 display: flex;
                 font-family: sans-serif;
                 font-weight: 500;
-                font-size: 24px;
+                font-size: 32px;
             	cursor: pointer;
                 color:#000000;
                 border: none;
@@ -29,10 +29,10 @@ export default class UnrulyOfficeAssistant extends HTMLElement {
     return `
             <button id="button-container">
               <div id="icon"><img src="./images/pink-clip.jpg"></div>
-              <div id="label"><slot>"Clippy"</slot></div>
+              <div id="label"><slot></slot></div>
             </button>
             <br>
-            <button><div id="update-button">Update attributes</div></button>
+            <button><div id="help-button"> Need Help </div></button>
         `;
   }
 
@@ -61,7 +61,7 @@ export default class UnrulyOfficeAssistant extends HTMLElement {
   initializeElements() {
     this.icon = this.shadowRoot.querySelector("#icon");
     this.button = this.shadowRoot.querySelector("#button-container");
-    this.attributesButton = this.shadowRoot.querySelector("#update-button");
+    this.helpButton = this.shadowRoot.querySelector("#help-button");
   }
 
   addEventListeners() {
@@ -69,19 +69,13 @@ export default class UnrulyOfficeAssistant extends HTMLElement {
     this.button.addEventListener("click", this.pressedCallback);
     this.icon.addEventListener("mouseenter", this.popUp);
     this.shadowRoot.addEventListener("keydown", this.userTyped);
-    this.attributesButton.addEventListener(
-      "click",
-      this.attributeChangedCallback()
-    );
+    this.helpButton.addEventListener("click", this.userHelp);
   }
 
   removeEventListeners() {
     this.button.removeEventListener("click", this.pressedCallback);
     this.icon.removeEventListener("mouseenter", this.popUp);
-    this.attributesButton.removeEventListener(
-      "click",
-      this.attributeChangedCallback()
-    );
+    this.helpButton.removeEventListener("click", this.userHelp);
   }
 
   buttonPressed() {
@@ -94,6 +88,17 @@ export default class UnrulyOfficeAssistant extends HTMLElement {
 
   userTyped() {
     alert("I can help you type if you'd like!");
+  }
+
+  userHelp() {
+    let text;
+    let helpText = prompt("How Can I Help You?");
+    if (helpText == null || helpText == "") {
+      text = "I guess you got it all figured out!";
+    } else {
+      text = "Clippy would love to help you with" + " " + helpText;
+    }
+    alert(text);
   }
 
   attributeChangedCallback() {
